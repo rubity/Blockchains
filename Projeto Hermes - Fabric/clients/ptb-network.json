@@ -1,0 +1,88 @@
+{
+  "name":"blockchain_default",
+  "description":"Sample network contains 2 peers (1 orgs), 1 orderer and 2 cas for Python SDK testing",
+  "version":"0.1",
+  "client":{
+    "organization":"PTB",
+    "credentialStore":{
+      "path":"/tmp/hfc-kvs",
+      "cryptoStore":{
+        "path":"/tmp/hfc-cvs"
+      },
+      "wallet":"wallet-name"
+    }
+  },
+  "channels": {
+    "ptb-channel": {
+        "orderers": [
+            "orderer.ptb.de"
+        ],
+        "peers": {
+            "peer0.ptb.de": {
+                "endorsingPeer": true,
+                "chaincodeQuery": true,
+                "ledgerQuery": true,
+                "eventSource": true
+            }
+        }
+    }
+  },
+  "organizations":{
+    "orderer.ptb.de":{
+      "mspid": "OrdererMSP",
+      "orderers": [
+        "orderer.ptb.de"
+      ],
+      "certificateAuthorities": [
+        "ca.ptb.de"
+      ],
+      "users": {
+        "Admin": {
+          "cert": "../blockchain/crypto-config/ordererOrganizations/ptb.de/users/Admin@ptb.de/msp/signcerts/Admin@ptb.de-cert.pem",
+          "private_key": "../blockchain/crypto-config/ordererOrganizations/ptb.de/users/Admin@ptb.de/msp/keystore/e98a2bfefbb2c14b462fb3ecefa6eb68518346dffd6f61efede0d7b7b4b7c048_sk"}
+      }
+    },
+    "ptb.de":{
+      "mspid": "PTBMSP",
+      "peers":[
+        "peer0.ptb.de",
+        "peer1.ptb.de"
+      ],
+      "certificateAuthorities":[
+        "ca.ptb.de"
+      ],
+      "users": {
+        "Admin": {
+          "cert": "../blockchain/crypto-config/peerOrganizations/ptb.de/users/Admin@ptb.de/msp/signcerts/Admin@ptb.de-cert.pem",
+          "private_key": "../blockchain/crypto-config/peerOrganizations/ptb.de/users/Admin@ptb.de/msp/keystore/4d3bbf9d620e551bfbba58285efe1162c00f1f40e50041acc3b3fb0aab436ad7_sk"
+        }
+      }
+    }
+  },
+  "orderers":{
+    "orderer.ptb.de":{
+      "url":"localhost:7050"
+    }
+  },
+  "peers":{
+    "peer0.ptb.de":{
+      "url":"localhost:7051",
+      "eventUrl":"localhost:7053"
+    },
+    "peer1.ptb.de":{
+      "url":"localhost:8051",
+      "eventUrl":"localhost:8053"
+    }
+  },
+  "certificateAuthorities":{
+    "ca.ptb.de":{
+      "url":"https://localhost:7054",
+      "registrar":[
+        {
+          "enrollId":"admin",
+          "enrollSecret":"adminpw"
+        }
+      ]
+    }
+  }
+}
